@@ -70,3 +70,4 @@ Place `section2.csv` and `ppirl.csv` in the `data/` directory.
 ## Notes
 - Deactivate: `deactivate`.
 - Change `ADMIN_PASSWORD` in `app.py` for security.
+- Vidal location : vidal/proj1/hck_pinfo/MINDFRIL-UI
