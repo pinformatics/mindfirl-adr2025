@@ -55,7 +55,7 @@ def admin_required(f):
         return f(*args, **kwargs)
     return decorated_function
 
-@app.route('/for_joshua/<filename>')
+@app.route('/<filename>')
 def load_csv(filename):
     global DATA_PAIR_LIST, data_pairs, flag
     mode = 'PPIRL' if filename.startswith('Mindfirl_') else 'CDIRL'
