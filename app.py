@@ -89,7 +89,7 @@ def show_survey_link(mode=None):
         for index in range(0, len(pairs_formatted)):
             if index < len(data_pairs):
                 pairs_formatted[index] = data_pairs[index][:9]
-        title = 'Complete Data Interactive Record Linkage (CDIRL)'
+        title = 'Interactive Record Linkage'
     else:
         pairs_formatted = DATA_PAIR_LIST.get_data_display('masked')
         title = 'Privacy Preserving Interactive Record Linkage (PPIRL)'
@@ -133,7 +133,7 @@ def show_survey_link(mode=None):
     previous_choices = r.get(choices_key)
     choices = json.loads(previous_choices) if previous_choices else {}
 
-    return render_template('survey_link_for_joshua.html', data=data, icons=icons, ids=ids, title=title, thisurl='/record_linkage', page_number=16, delta=delta, delta_cdp=delta_cdp, mode=mode, choices=choices)
+    return render_template('base.html', data=data, icons=icons, ids=ids, title=title, thisurl='/record_linkage', page_number=16, delta=delta, delta_cdp=delta_cdp, mode=mode, choices=choices)
 
 @app.route("/save_survey", methods=['POST'])
 def save_survey():
