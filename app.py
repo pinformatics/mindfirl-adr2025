@@ -76,7 +76,7 @@ def load_csv(filename):
 @app.route('/survey_link')
 def show_survey_link(mode=None):
     global DATA_PAIR_LIST, data_pairs, flag
-    mode = mode or request.args.get('mode', 'PPIRL')
+    mode = mode or request.args.get('mode', 'CDIRL')
 
     if not flag:
         data_pairs = dl.load_data_from_csv('data/ppirl.csv')
@@ -133,7 +133,7 @@ def show_survey_link(mode=None):
     previous_choices = r.get(choices_key)
     choices = json.loads(previous_choices) if previous_choices else {}
 
-    return render_template('survey_link.html', data=data, icons=icons, ids=ids, title=title, thisurl='/record_linkage', page_number=16, delta=delta, delta_cdp=delta_cdp, mode=mode, choices=choices)
+    return render_template('survey_link_for_joshua.html', data=data, icons=icons, ids=ids, title=title, thisurl='/record_linkage', page_number=16, delta=delta, delta_cdp=delta_cdp, mode=mode, choices=choices)
 
 @app.route("/save_survey", methods=['POST'])
 def save_survey():
