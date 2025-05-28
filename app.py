@@ -89,9 +89,9 @@ def show_survey_link(mode=None):
         title = 'Privacy Preserving Interactive Record Linkage (PPIRL)'
     else:
         pairs_formatted = DATA_PAIR_LIST.get_data_display('full')
-        for index in range(0, len(pairs_formatted)):
-            if index < len(data_pairs):
-                pairs_formatted[index] = data_pairs[index][:9]
+        # for index in range(0, len(pairs_formatted)):
+        #     if index < len(data_pairs):
+        #         pairs_formatted[index] = data_pairs[index][:9]
         title = 'Interactive Record Linkage'
 
     data = zip(pairs_formatted[0::2], pairs_formatted[1::2])

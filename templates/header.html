@@ -4,12 +4,12 @@
             </div> -->
         <div style="clear:both"></div>
         <div id="content" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; padding: 20px;">
-            <div style="flex-basis: 49%; min-width: 300px; margin-right: 1%; font-size:1em">
+            <div style="flex-basis: 49%; min-width: 300px; margin-right: 1%; margin-top: 2.4em; font-size:1.1em">
                 <ul>
                     <li>Note: To see all features, please use Google Chrome or Safari browser.</li>
                     <li>First, view the tutorial below:
                         <ul>
-                            <li><a href="https://urldefense.com/v3/__https://https://docs.google.com/presentation/d/1lar4eXquiGIoLF2zrSbjAqjdI6egP5O5/edit?slide=id.p18#slide=id.p18" target="_blank">Click to see a short instructional tutorial</a></li>
+                            <li><a href="https://docs.google.com/presentation/d/1lar4eXquiGIoLF2zrSbjAqjdI6egP5O5/edit?slide=id.p18#slide=id.p1" target="_blank">Click to see a short instructional tutorial</a></li>
                         </ul>
                     </li>
                     <li>Second, try making a few linkage decisions yourself. Use the information to answer the likelihood of each pair describing the same person or different people under the "Choice Panel".</li>
@@ -34,6 +34,7 @@
                         <li><img src="../static/images/site/diff.png" alt="Major field differences" style="width: 20px; height: 20px;"> Major field differences</li>
                     </ul>
                 </div>
+                {% if mode=="PPIRL" %}
                 <div class="legend-section" style="flex: 1; padding: 0;">
                     <h4 style="padding: 0; margin: 0; white-space: nowrap; font-size: 0.9em;"><strong>Highlight data details for privacy</strong></h4> <!-- Reduced font size -->
                     <ul style="padding: 0; margin: 0;">
@@ -41,6 +42,7 @@
                         <li><span class="icon" style="color: black;">***&nbsp;</span>Same characters</li>
                     </ul>
                 </div>
+                {% endif %}
             </div>
         </div>
         
