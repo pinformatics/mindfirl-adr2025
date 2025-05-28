@@ -2,21 +2,19 @@
            <!--  <div id="page-number"  style="margin-left: 40%;">
                 （ page: {{ page_number }}/17 ）
             </div> -->
-            <div style="clear:both"></div>
-            <div id="content" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; padding: 20px;">
-                <div style="flex-basis: 49%; min-width: 300px; margin-right: 1%; font-size:1em">
-                    <ul>
-                        <li>Note: To see all features, please use Google Chrome or Safari browser.</li>
-                        <li>First, view one of the tutorials below:
-                            <ul>
-                                <li><a href="https://urldefense.com/v3/__https://www.youtube.com/watch?v=xM_Yw4h6nn4&amp;list=PLnBH5Dx2WPusqUXvCO6rQT6H_FZfBbDtB&amp;index=3__;!!KwNVnqRv!EszTQ9HGcYFKSeAk9bVLmc9LDIqm3f3NjWCj_YIW2un-aIku0zKI3DmFANgz32f3LLIi26r21thANhBYoiUMQT0$" target="_blank">Short tutorial. 2.16 min video</a></li>
-                                <li><a href="https://urldefense.com/v3/__https://www.youtube.com/watch?v=9MtF4ZkFYXo&amp;list=PLnBH5Dx2WPusqUXvCO6rQT6H_FZfBbDtB&amp;index=5__;!!KwNVnqRv!EszTQ9HGcYFKSeAk9bVLmc9LDIqm3f3NjWCj_YIW2un-aIku0zKI3DmFANgz32f3LLIi26r21thANhBYmjc7llg$" target="_blank">Full 1h webinar</a></li>
-                            </ul>
-                        </li>
-                        <li>For a full list of talks on PPIRL, visit <a href="https://urldefense.com/v3/__https://www.youtube.com/watch?v=fc48J-H0sZs&amp;list=PLnBH5Dx2WPusqUXvCO6rQT6H_FZfBbDtB__;!!KwNVnqRv!EszTQ9HGcYFKSeAk9bVLmc9LDIqm3f3NjWCj_YIW2un-aIku0zKI3DmFANgz32f3LLIi26r21thANhBYPwRMTtE$" target="_blank">this link</a>.</li>
-                        <li>Second, now try making a few linkage decisions yourself to experience how the software works. Remember you can click to see more, and the meter on top tracks how much you saw. Once you have enough information to make the linkage decision, answer the likelihood of each pair being about the same person or different people under the “Choice Panel”.</li>
-                    </ul>
-                </div>
+        <div style="clear:both"></div>
+        <div id="content" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; padding: 20px;">
+            <div style="flex-basis: 49%; min-width: 300px; margin-right: 1%; font-size:1em">
+                <ul>
+                    <li>Note: To see all features, please use Google Chrome or Safari browser.</li>
+                    <li>First, view the tutorial below:
+                        <ul>
+                            <li><a href="https://urldefense.com/v3/__https://https://docs.google.com/presentation/d/1lar4eXquiGIoLF2zrSbjAqjdI6egP5O5/edit?slide=id.p18#slide=id.p18" target="_blank">Click to see a short instructional tutorial</a></li>
+                        </ul>
+                    </li>
+                    <li>Second, try making a few linkage decisions yourself. Use the information to answer the likelihood of each pair describing the same person or different people under the "Choice Panel".</li>
+                </ul>
+            </div>
 
 		<!-- <div  style="flex-basis: 49%; flex-direction: column; align-items: center; width: 30%; background-color: transparent; margin: 0; padding: 0;">
 			<img src="https://i.postimg.cc/sXZbJNM5/legend.png" style="width: 70%; max-width: 800px; height: auto;">
@@ -47,7 +45,7 @@
         </div>
         
 
-
+{% if mode=="PPIRL" %}
                 <div class="privacy-budget-div" style="flex-basis: 49%; min-width: 300px; margin-left: 1%;">
                     
                     <div>Character disclosed: <span id="character-disclosed-value">0%</span><span id="character-percentage-delta-value"></span></div>
@@ -62,4 +60,4 @@
                         <div id="privacy-risk-delta" class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                 </div>
-            
+{% endif %}

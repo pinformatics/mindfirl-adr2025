@@ -38,16 +38,75 @@
         
     </head>
 
-    <body id="wrapper">
-        <div id="title">
-            <h3>{{ title }}</h3>
-        </div>
-    </body>
-    
-    {% include "header.html" %}
-    
     <body>
         <div id="wrapper">
+            <div id="title">
+                <h3>{{ title }}</h3>
+            </div>
+           <!--  <div id="page-number"  style="margin-left: 40%;">
+                （ page: {{ page_number }}/17 ）
+            </div> -->
+            <div style="clear:both"></div>
+            <div id="content" style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; padding: 20px;">
+                <div style="flex-basis: 49%; min-width: 300px; margin-right: 1%; font-size:1em">
+                    <ul>
+                        <li>Note: To see all features, please use Google Chrome or Safari browser.</li>
+                        <li>First, view one of the tutorials below:
+                            <ul>
+                                <li><a href="https://urldefense.com/v3/__https://www.youtube.com/watch?v=xM_Yw4h6nn4&amp;list=PLnBH5Dx2WPusqUXvCO6rQT6H_FZfBbDtB&amp;index=3__;!!KwNVnqRv!EszTQ9HGcYFKSeAk9bVLmc9LDIqm3f3NjWCj_YIW2un-aIku0zKI3DmFANgz32f3LLIi26r21thANhBYoiUMQT0$" target="_blank">Short tutorial. 2.16 min video</a></li>
+                                <li><a href="https://urldefense.com/v3/__https://www.youtube.com/watch?v=9MtF4ZkFYXo&amp;list=PLnBH5Dx2WPusqUXvCO6rQT6H_FZfBbDtB&amp;index=5__;!!KwNVnqRv!EszTQ9HGcYFKSeAk9bVLmc9LDIqm3f3NjWCj_YIW2un-aIku0zKI3DmFANgz32f3LLIi26r21thANhBYmjc7llg$" target="_blank">Full 1h webinar</a></li>
+                            </ul>
+                        </li>
+                        <li>For a full list of talks on PPIRL, visit <a href="https://urldefense.com/v3/__https://www.youtube.com/watch?v=fc48J-H0sZs&amp;list=PLnBH5Dx2WPusqUXvCO6rQT6H_FZfBbDtB__;!!KwNVnqRv!EszTQ9HGcYFKSeAk9bVLmc9LDIqm3f3NjWCj_YIW2un-aIku0zKI3DmFANgz32f3LLIi26r21thANhBYPwRMTtE$" target="_blank">this link</a>.</li>
+                        <li>Second, now try making a few linkage decisions yourself to experience how the software works. Remember you can click to see more, and the meter on top tracks how much you saw. Once you have enough information to make the linkage decision, answer the likelihood of each pair being about the same person or different people under the “Choice Panel”.</li>
+                    </ul>
+                </div>
+
+		<!-- <div  style="flex-basis: 49%; flex-direction: column; align-items: center; width: 30%; background-color: transparent; margin: 0; padding: 0;">
+			<img src="https://i.postimg.cc/sXZbJNM5/legend.png" style="width: 70%; max-width: 800px; height: auto;">
+
+		</div> -->
+        <div id="legend" style="flex-basis: 49%; flex-direction: column; align-items: center; width: 20%; background-color: transparent; margin: 0; padding: 0;">
+            <h3 style="font-size: 1.5em; width: 100%; text-align: left;"><strong>Legend</strong></h3>
+            <div style="display: flex; width: 60%; max-width: 800px;  padding: 0;">
+                <div class="legend-section" style="flex: 1; padding: 0;">
+                    <h4 style="padding: 0; margin: 0; white-space: nowrap; font-size: 0.9em;"><strong>Highlight discrepancies</strong></h4> 
+                    <ul style="padding: 0; margin: 0;">
+                        <li><img src="../static/images/site/missing.png" alt="Missing fields" style="width: 20px; height: 20px;"> Missing fields</li>
+                        <li><img src="../static/images/site/replace.png" alt="Different characters" style="width: 20px; height: 20px;"> Different characters</li>
+                        <li><img src="../static/images/site/indel.png" alt="Extra characters" style="width: 20px; height: 20px;"> Extra characters</li>
+                        <li><img src="../static/images/site/transpose.png" alt="Transposed characters" style="width: 20px; height: 20px;"> Transposed characters</li>
+                        <li><img src="../static/images/site/name_swap.png" alt="Name/date swaps" style="width: 20px; height: 20px;"> Name/date swaps</li>
+                        <li><img src="../static/images/site/diff.png" alt="Major field differences" style="width: 20px; height: 20px;"> Major field differences</li>
+                    </ul>
+                </div>
+                <div class="legend-section" style="flex: 1; padding: 0;">
+                    <h4 style="padding: 0; margin: 0; white-space: nowrap; font-size: 0.9em;"><strong>Highlight data details for privacy</strong></h4> <!-- Reduced font size -->
+                    <ul style="padding: 0; margin: 0;">
+                        <li><img src="../static/images/site/checkmark.png" alt="Same fields" style="width: 20px; height: 20px;"> Same fields</li>
+                        <li><span class="icon" style="color: black;">***&nbsp;</span>Same characters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+
+
+                <div class="privacy-budget-div" style="flex-basis: 49%; min-width: 300px; margin-left: 1%;">
+                    
+                    <div>Character disclosed: <span id="character-disclosed-value">0%</span><span id="character-percentage-delta-value"></span></div>
+                    <div class="progress">
+                        <div id="character-disclosed-bar" class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="character-percentage-delta" class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    
+                    <div>Privacy risk: <span id="privacy-risk-value">0%</span><span id="privacy-risk-delta-value"></span></div>
+                    <div class="progress">
+                        <div id="privacy-risk-bar" class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 0%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div id="privacy-risk-delta" class="progress-bar bg-warning" role="progressbar" style="width: 0%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
+                
                 <div id="table">
                     <div id="table_head">
                         <div class="table_col1">Pair</div>

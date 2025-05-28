@@ -84,15 +84,15 @@ def show_survey_link(mode=None):
         session['current_filename'] = 'ppirl.csv'
         session['is_custom'] = False
 
-    if mode == 'CDIRL':
+    if mode == 'PPIRL':
+        pairs_formatted = DATA_PAIR_LIST.get_data_display('masked')
+        title = 'Privacy Preserving Interactive Record Linkage (PPIRL)'
+    else:
         pairs_formatted = DATA_PAIR_LIST.get_data_display('full')
         for index in range(0, len(pairs_formatted)):
             if index < len(data_pairs):
                 pairs_formatted[index] = data_pairs[index][:9]
         title = 'Interactive Record Linkage'
-    else:
-        pairs_formatted = DATA_PAIR_LIST.get_data_display('masked')
-        title = 'Privacy Preserving Interactive Record Linkage (PPIRL)'
 
     data = zip(pairs_formatted[0::2], pairs_formatted[1::2])
     M = len(data_pairs)
