@@ -390,9 +390,9 @@ def get_name_freq(freq, mode):
     if mode == 'base':
         return ''
     freq = int(freq)
-    if freq == 1:
+    if freq <= 3:
         return '<img src="../static/images/site/unique.png" alt="unique" class="freq_icon">'
-    elif freq <= 5:
+    elif freq <= 10:
         return '<img src="../static/images/site/rare.png" alt="rare" class="freq_icon">'
     elif freq <= 100:
         return '<img src="../static/images/site/common.png" alt="common" class="freq_icon">'
