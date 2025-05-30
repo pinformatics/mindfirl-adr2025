@@ -3,12 +3,12 @@
 */
 
 #wrapper {
-    width: 1600px;
-    margin: 20px 50px 20px 50px;
+    width: 95vw;
+    margin: 25px 30px 5px 30px;
 }
 
 #title {
-    width: 2100px;
+    width: 95vw;
     text-align: center;
     margin-bottom: 5px;
 }
@@ -18,7 +18,7 @@
 }
 
 #table {
-    width: 1600px;
+    width: 88vw;
 }
 
 #table_head {
@@ -36,22 +36,22 @@
 }
 
 .table_col1 {
-    width: 100px;
+    width: 5.5vw;
     float: left;
 }
 
 .table_col2 {
-    width: 190px;
+    width: 11vw;
     float: left;
 }
 
 .table_col3 {
-    width: 80px;
+    width: 4.4vw;
     float: left;
 }
 
 .table_col4 {
-    width: 130px;
+    width: 7.2vw;
     float: left;
     padding-left: 5px;
 }
@@ -60,39 +60,39 @@
     display: flex;
     justify-content: left;
     align-items: center;
-    width: 110px;
+    width: 6vw;
     height: 124px;
     float: left;
 }
 
 .table_col5 {
-    width: 130px;
+    width: 7vw;
     float: left;
     padding-left: 5px;
 }
 
 .table_col6 {
-    width: 80px;
+    width: 4.5vw;
     float: left;
 }
 
 .table_col7 {
-    width: 165px;
+    width: 9vw;
     float: left;
 }
 
 .table_col8 {
-    width: 80px;
+    width: 4.5vw;
     float: left;
 }
 
 .table_col9 {
-    width: 80px;
+    width: 4.5vw;
     float: left;
 }
 
 .table_col10 {
-    width: 400px;
+    width: 22vw;
     float: left;
 }
 
