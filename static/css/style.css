@@ -3,12 +3,12 @@
 */
 
 #wrapper {
-    width: 1800px;
+    width: 1600px;
     margin: 20px 50px 20px 50px;
 }
 
 #title {
-    width: 1800px;
+    width: 2100px;
     text-align: center;
     margin-bottom: 5px;
 }
@@ -18,7 +18,7 @@
 }
 
 #table {
-    width: 1750px;
+    width: 1600px;
 }
 
 #table_head {
@@ -51,19 +51,22 @@
 }
 
 .table_col4 {
-    width: 190px;
+    width: 130px;
     float: left;
     padding-left: 5px;
 }
 
 .table_col4_5 {
-    width: 80px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    width: 110px;
     height: 124px;
     float: left;
 }
 
 .table_col5 {
-    width: 190px;
+    width: 130px;
     float: left;
     padding-left: 5px;
 }
@@ -89,7 +92,7 @@
 }
 
 .table_col10 {
-    width: 460px;
+    width: 400px;
     float: left;
 }
 
@@ -184,8 +187,8 @@
 }
 
 .name_swap_icon {
-    width: 70px;
-    height: 110px;
+    width: 80px;
+    height: 80px;
 }
 
 .transpose_text {
