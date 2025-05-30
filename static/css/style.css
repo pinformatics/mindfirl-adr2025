@@ -205,6 +205,7 @@
 
 .table_names {
     text-align: left;
+    white-space: nowrap;
 }
 
 .hidden_element {
