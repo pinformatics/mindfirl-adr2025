@@ -40,12 +40,16 @@ if 'DYNO' in os.environ:
 else:
     r = redis.Redis(host='localhost', port=6379, db=0)
 
+data_path = 'data/ppirl.csv'
 DATASET = dl.load_data_from_csv('data/section2.csv')
-data_pairs = dl.load_data_from_csv('data/ppirl.csv')
+data_pairs = dl.load_data_from_csv(data_path)
 DATA_PAIR_LIST = dm.DataPairList(data_pairs)
 flag = False
 
-ADMIN_PASSWORD = 'admin123'
+user_selections = [""] * len(data_pairs)
+r.set("Dataset Source", data_path)
+
+ADMIN_PASSWORD = 'hckjlpopulationinformaticslab'
 
 def admin_required(f):
     @wraps(f)
