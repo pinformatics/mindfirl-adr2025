@@ -6,6 +6,7 @@
 */
 
 $(document).ready(function(){
+    console.log("print now")
     var $options = $("li.input_radio");
 
     $options.click(function(e){
@@ -34,6 +35,7 @@ $(document).ready(function(){
         $click_time = "click time: " + dt.getHours() + "h" + dt.getMinutes() + "m" + dt.getSeconds() + "s";
         $click_timestamp = "click timestamp: " + dt.getTime();
         $data = [$this_click, $click_time, $click_timestamp].join()
+        console.log($data)
         $user_data += $data + ";";
     })
 })
