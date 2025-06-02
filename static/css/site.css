@@ -40,10 +40,10 @@ body {
   text-align: center;
 }
 
-.submit_button {
-    background-color: #30819C;
+.submit_div {
+    background-color: #cd8004;
     border: none;
-    color: white;
+    color: rgb(49, 22, 203);
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;

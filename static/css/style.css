@@ -216,20 +216,24 @@ input[type="radio"] {
     display: none;
 }
 
-.submit_div {
-    width: 1800px;
+#submit_div {
+    background: red;
     margin-top: 10px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.submit_button {
+#submit_button {
     background-color: #30819C;
     border: none;
     color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 16px;
     cursor: pointer;
 }

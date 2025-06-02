@@ -4,18 +4,18 @@
         <meta charset="utf-8">
         <title>PPIRL</title>
         <link rel="shortcut icon" href="../static/images/site/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../static/css/site.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/style.css?q=40" type="text/css">
+        <link rel="stylesheet" href="../static/css/site.css?q=6" type="text/css">
+        <link rel="stylesheet" href="../static/css/style.css?q=4" type="text/css">
         <link rel="stylesheet" href="../static/css/ionicons.min.css" type="text/css">
         <link rel="stylesheet" href="../static/css/select.css?q=22" type="text/css">
         <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/footer.css" type="text/css">
+        <link rel="stylesheet" href="../static/css/footer.css?q=4" type="text/css">
         <link rel="stylesheet" href="../static/css/animate.min.css">
         <script src="../static/javascript/jquery-3.2.1.min.js"></script>
         <script src="../static/javascript/popper.min.js"></script>
         <script src="../static/javascript/bootstrap.min.js"></script>
-        <script src="../static/javascript/site.js"></script>
-        <script src="../static/javascript/choice_panel.js?v=5"></script>
+        <script src="../static/javascript/site.js?v=2"></script>
+        <script src="../static/javascript/choice_panel.js?v=9"></script>
         <!-- <script src="../static/javascript/grading.js"></script> -->
         <!-- <script src="../static/javascript/form_submit.js?v=7"></script> -->
         <!-- <script src="../static/javascript/clickable.js?v=17"></script> -->
@@ -49,28 +49,27 @@
     <body id="wrapper">
         {% include "header.html" %}
     </body>
-    <body>
-        <div id="wrapper">
+    <body id="wrapper">
+        <div>
             {% include "table.html" %}
         </div>
-		    <form method="GET" onsubmit="return end_RL()"> 
-                  
-           
-                <button type="submit" style="margin-left: 45% " >Submit</button>
-                    
-            </form>
-
+    </body>
+        <div class="submit-div">
+		    <!-- <div class="submit-div"> 
+                <button type="submit" class="submit-button" >Submit</button>
+            </div> -->
+            SUbmit
+        </div>
         <div id="footer_filler"></div>
         <footer class="footer">
             <div class="container">
                 <span class="text-muted">Copyright © 2017 • Population Informatics Lab • Texas A&M University</span>
             </div>
         </footer>
-    </body>
 
     
 
-    
+    <!--
     <script  type=text/javascript>
         $('#email_hover').attr('title', 'In our preliminary voting, we encountered duplicate votes due to system errors. As a result, we are asking for your email address so that we can ensure there is only one vote for you. Once we have cleaned the data, we will delete your email to ensure that your responses are anonymous.');
         $('#email_hover').on('click', function(){
@@ -273,5 +272,5 @@
         }
     };
     </script>
-
+-->
 </html>

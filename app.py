@@ -47,7 +47,6 @@ DATA_PAIR_LIST = dm.DataPairList(data_pairs)
 flag = False
 
 user_selections = [""] * len(data_pairs)
-r.set("Dataset Source", data_path)
 
 ADMIN_PASSWORD = 'hckjlpopulationinformaticslab'
 
@@ -76,14 +75,21 @@ def load_csv(filename):
     else:
         return "Invalid file type or file not found", 400
 
-@app.route('/update_selections', methods=['POST'])
+@app.route('/update_selection', methods=['POST'])
 def update_selection():
     data = request.get_json()
     button_id = data['id']
-    index = int(button_id[1, 2])
+    index = int(button_id[1:2])
     selection = button_id[3:]
-    
+    user_selections[index] = selection
+    print "update selection"
+    return jsonify(success=True)
 
+@app.route('/submit_selections', methods=['POST'])
+def submit_selections():
+    print "submit selections python"
+    r.set("id:" + session['user_cookie'] + "___file:" + data_path, ','.join(user_selections))
+    return jsonify(success=True)
 
 @app.route('/')
 @app.route('/survey_link')
@@ -118,18 +124,18 @@ def show_survey_link(mode=None):
     session['user_cookie'] = hashlib.sha224("salt12138" + str(timestamp) + '.' + str(randint(1, 10000))).hexdigest()
     total_characters = DATA_PAIR_LIST.get_total_characters()
     mindfil_total_characters_key = session['user_cookie'] + '_mindfil_total_characters'
-    r.set(mindfil_total_characters_key, total_characters)
+    # r.set(mindfil_total_characters_key, total_characters)
     mindfil_disclosed_characters_key = session['user_cookie'] + '_mindfil_disclosed_characters'
-    r.set(mindfil_disclosed_characters_key, 0)
+    # r.set(mindfil_disclosed_characters_key, 0)
     KAPR_key = session['user_cookie'] + '_KAPR'
-    r.set(KAPR_key, 0)
+    # r.set(KAPR_key, 0)
     timestamp_key = session['user_cookie'] + '_timestamp'
-    r.set(timestamp_key, str(timestamp))
+    # r.set(timestamp_key, str(timestamp))
 
     for id1 in ids_list:
         for i in range(6):
             key = session['user_cookie'] + '-' + id1[i]
-            r.set(key, 'F' if mode == 'CDIRL' else 'M')
+            # r.set(key, 'F' if mode == 'CDIRL' else 'M')
 
     delta = []
     delta_cdp = []
@@ -147,106 +153,6 @@ def show_survey_link(mode=None):
     choices = json.loads(previous_choices) if previous_choices else {}
 
     return render_template('base.html', data=data, icons=icons, ids=ids, title=title, thisurl='/record_linkage', page_number=16, delta=delta, delta_cdp=delta_cdp, mode=mode, choices=choices)
-
-@app.route("/save_survey", methods=['POST'])
-def save_survey():
-    f = request.form
-    user_cookie = session.get('user_cookie', 'unknown_user')
-    mode = request.args.get('mode', 'PPIRL')
-
-    choices = {}
-    for key in f.keys():
-        if key.startswith("choice_"):
-            pair_num = key.split("_")[1]
-            value = f.get(key)
-            if value:
-                choices[pair_num] = value
-                choice_key = "{0}_choice_{1}".format(user_cookie, pair_num)
-                r.set(choice_key, value)
-                if mode == 'CDIRL':
-                    r.expire(choice_key, 3600) 
-
-    attribute_names = ['Mode', 'User ID', 'Submission Time', 'ID', 'First Name', 'Last Name', 'DoB(M/D/Y)', 'Sex', 'Race', 'Choice', 'Total_Characters', 'Disclosed_Characters', 'KAPR_Privacy_Risk']
-    ids_list = DATA_PAIR_LIST.get_ids()
-    paired_ids = list(zip(ids_list[0::2], ids_list[1::2]))
-    submission_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
-    activity = []
-
-    total_chars = disclosed_chars = kapr = 'N/A'
-    if mode == 'PPIRL':
-        mindfil_total_characters_key = user_cookie + '_mindfil_total_characters'
-        mindfil_disclosed_characters_key = user_cookie + '_mindfil_disclosed_characters'
-        KAPR_key = user_cookie + '_KAPR'
-        total_chars = int(r.get(mindfil_total_characters_key) or 0)
-        disclosed_chars = int(r.get(mindfil_disclosed_characters_key) or 0)
-        kapr = float(r.get(KAPR_key) or 0)
-
-    for i, pair_ids in enumerate(paired_ids, start=1):
-        pair_data = {
-            'Mode': mode,
-            'User ID': user_cookie,
-            'Submission Time': submission_time,
-            'Pair Number': str(i - 1)
-        }
-        for j, attr_name in enumerate(['ID', 'First Name', 'Last Name', 'DoB(M/D/Y)', 'Sex', 'Race']):
-            key1 = user_cookie + '-' + pair_ids[0][j]
-            key2 = user_cookie + '-' + pair_ids[1][j]
-            status1 = r.get(key1) or 'M'
-            status2 = r.get(key2) or 'M'
-            status1 = status1.decode('utf-8') if status1 else 'M'
-            status2 = status2.decode('utf-8') if status2 else 'M'
-            pair_data[attr_name] = status1 if status1 == status2 else '{0}|{1}'.format(status1, status2)
-        
-        pair_num = str(i)
-        pair_data['Choice'] = choices[pair_num]
-        pair_data['Total_Characters'] = total_chars
-        pair_data['Disclosed_Characters'] = disclosed_chars
-        pair_data['KAPR_Privacy_Risk'] = kapr
-        activity.append(pair_data)
-
-    output = StringIO.StringIO()
-    writer = csv.writer(output)
-    headers = ['Pair Number'] + attribute_names
-    writer.writerow(headers)
-
-    for act in activity:
-        row = [act['Pair Number']] + [act[attr] for attr in attribute_names]
-        writer.writerow(row)
-
-    csv_content = output.getvalue()
-    output.close()
-
-    redirect_url = None
-    if session.get('is_custom', False):
-        filename = session.get('current_filename', 'ppirl.csv')
-        redirect_url = url_for('load_csv', filename=filename)
-    else:
-        redirect_url = url_for('show_survey_link', mode=mode)
-
-    try:
-        msg = Message(subject='User Activity Report for {0}'.format(user_cookie), 
-                      sender=MAIL_SENDER, 
-                      recipients=[MAIL_RECEIVER])
-        msg.body = "Attached is the user activity report in CSV format."
-        msg.attach("user_activity_{0}.csv".format(user_cookie), "text/csv", csv_content)
-        mail.send(msg)
-        print "Email sent successfully!"
-        
-        choices_key = user_cookie + '_choices'
-        r.set(choices_key, json.dumps(choices))
-        if mode == 'CDIRL':
-            r.expire(choices_key, 3600)
-
-        return jsonify({
-            "message": "Thank you, your response has been recorded. You may close your browser or try again.",
-            "redirect": redirect_url
-        })
-    except Exception as e:
-        print "Email error:", str(e)
-        return jsonify({
-            "message": "Failed to send email: {0}. Your response was not recorded.".format(str(e)),
-            "redirect": redirect_url
-        }), 500
 
 @app.route('/get_cell', methods=['GET', 'POST'])
 def open_cell():
@@ -349,7 +255,7 @@ def view_all_redis_data():
     except redis.ConnectionError as e:
         return "Error connecting to Redis: {0}".format(str(e)), 500
 
-@app.route('/clear_redis')
+@app.route('/admin/clear_redis')
 def clear_redis():
     try:
         r.flushall()
@@ -482,3 +388,105 @@ def admin_dump_db():
         return response
     except redis.ConnectionError as e:
         return jsonify({"message": "Failed to dump Redis: {0}".format(str(e)), "status": "error"}), 500
+
+@app.route("/save_survey", methods=['POST'])
+def save_survey():
+    f = request.form
+    user_cookie = session.get('user_cookie', 'unknown_user')
+    mode = request.args.get('mode', 'PPIRL')
+
+    choices = {}
+    for key in f.keys():
+        if key.startswith("choice_"):
+            pair_num = key.split("_")[1]
+            value = f.get(key)
+            if value:
+                choices[pair_num] = value
+                choice_key = "{0}_choice_{1}".format(user_cookie, pair_num)
+                r.set(choice_key, value)
+                if mode == 'CDIRL':
+                    r.expire(choice_key, 3600) 
+
+    attribute_names = ['Mode', 'User ID', 'Submission Time', 'ID', 'First Name', 'Last Name', 'DoB(M/D/Y)', 'Sex', 'Race', 'Choice', 'Total_Characters', 'Disclosed_Characters', 'KAPR_Privacy_Risk']
+    ids_list = DATA_PAIR_LIST.get_ids()
+    paired_ids = list(zip(ids_list[0::2], ids_list[1::2]))
+    submission_time = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    activity = []
+
+    total_chars = disclosed_chars = kapr = 'N/A'
+    if mode == 'PPIRL':
+        mindfil_total_characters_key = user_cookie + '_mindfil_total_characters'
+        mindfil_disclosed_characters_key = user_cookie + '_mindfil_disclosed_characters'
+        KAPR_key = user_cookie + '_KAPR'
+        total_chars = int(r.get(mindfil_total_characters_key) or 0)
+        disclosed_chars = int(r.get(mindfil_disclosed_characters_key) or 0)
+        kapr = float(r.get(KAPR_key) or 0)
+
+    for i, pair_ids in enumerate(paired_ids, start=1):
+        pair_data = {
+            'Mode': mode,
+            'User ID': user_cookie,
+            'Submission Time': submission_time,
+            'Pair Number': str(i - 1)
+        }
+        for j, attr_name in enumerate(['ID', 'First Name', 'Last Name', 'DoB(M/D/Y)', 'Sex', 'Race']):
+            key1 = user_cookie + '-' + pair_ids[0][j]
+            key2 = user_cookie + '-' + pair_ids[1][j]
+            status1 = r.get(key1) or 'M'
+            status2 = r.get(key2) or 'M'
+
+            status2 = r.get(key2) or 'M'
+            status1 = status1.decode('utf-8') if status1 else 'M'
+            status2 = status2.decode('utf-8') if status2 else 'M'
+            pair_data[attr_name] = status1 if status1 == status2 else '{0}|{1}'.format(status1, status2)
+        
+        pair_num = str(i)
+        pair_data['Choice'] = choices[pair_num]
+        pair_data['Total_Characters'] = total_chars
+        pair_data['Disclosed_Characters'] = disclosed_chars
+        pair_data['KAPR_Privacy_Risk'] = kapr
+        activity.append(pair_data)
+
+    output = StringIO.StringIO()
+    writer = csv.writer(output)
+    headers = ['Pair Number'] + attribute_names
+    writer.writerow(headers)
+
+    for act in activity:
+        row = [act['Pair Number']] + [act[attr] for attr in attribute_names]
+        writer.writerow(row)
+
+    csv_content = output.getvalue()
+    output.close()
+
+    redirect_url = None
+    if session.get('is_custom', False):
+        filename = session.get('current_filename', 'ppirl.csv')
+        redirect_url = url_for('load_csv', filename=filename)
+    else:
+        redirect_url = url_for('show_survey_link', mode=mode)
+
+    try:
+        msg = Message(subject='User Activity Report for {0}'.format(user_cookie), 
+                      sender=MAIL_SENDER, 
+                      recipients=[MAIL_RECEIVER])
+        msg.body = "Attached is the user activity report in CSV format."
+        msg.attach("user_activity_{0}.csv".format(user_cookie), "text/csv", csv_content)
+        mail.send(msg)
+        print "Email sent successfully!"
+        
+        choices_key = user_cookie + '_choices'
+        r.set(choices_key, json.dumps(choices))
+        if mode == 'CDIRL':
+            r.expire(choices_key, 3600)
+
+        return jsonify({
+            "message": "Thank you, your response has been recorded. You may close your browser or try again.",
+            "redirect": redirect_url
+        })
+    except Exception as e:
+        print "Email error:", str(e)
+        return jsonify({
+            "message": "Failed to send email: {0}. Your response was not recorded.".format(str(e)),
+            "redirect": redirect_url
+        }), 500

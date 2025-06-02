@@ -29,13 +29,30 @@ $(document).ready(function(){
             $same.css("border-color", "#30819c");
         }
 
-        // save the user click data
-        $this_click = "user click: " + $selected_id;
-        var dt = new Date();
-        $click_time = "click time: " + dt.getHours() + "h" + dt.getMinutes() + "m" + dt.getSeconds() + "s";
-        $click_timestamp = "click timestamp: " + dt.getTime();
-        $data = [$this_click, $click_time, $click_timestamp].join()
-        console.log($data)
-        $user_data += $data + ";";
+        fetch('/update_selection', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({'id': $selected_id})
+
+        })
+        // // save the user click data
+        // $this_click = "user click: " + $selected_id;
+        // var dt = new Date();
+        // $click_time = "click time: " + dt.getHours() + "h" + dt.getMinutes() + "m" + dt.getSeconds() + "s";
+        // $click_timestamp = "click timestamp: " + dt.getTime();
+        // $data = [$this_click, $click_time, $click_timestamp].join()
+        // console.log($data)
+        // $user_data += $data + ";";
     })
+})
+
+
+$(document).ready(function() {
+    var $options = $(".submit-button");
+    console.log("at least it ran")
+
+    $options.click(function(e) {
+        console.log("submit selections")
+        fetch('/submit_selections', {method: 'POST'})
+    });
 })
