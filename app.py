@@ -72,6 +72,15 @@ def load_csv(filename):
     else:
         return "Invalid file type or file not found", 400
 
+@app.route('/update_selections', methods=['POST'])
+def update_selection():
+    data = request.get_json()
+    button_id = data['id']
+    index = int(button_id[1, 2])
+    selection = button_id[3:]
+    
+
+
 @app.route('/')
 @app.route('/survey_link')
 def show_survey_link(mode=None):

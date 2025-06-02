@@ -16,6 +16,7 @@ $(document).ready(function(){
         $(this).removeClass("ion-android-radio-button-off");
         $(this).addClass("ion-android-radio-button-on");
         var $selected_id = $(this).attr("id");
+        console.log($selected_id)
         var $diff = $(this).parent().parent().find("li.diff");
         var $same = $(this).parent().parent().find("li.same");
         if($selected_id.indexOf("a1") > 0 || $selected_id.indexOf("a2") > 0 || $selected_id.indexOf("a3") > 0) {
