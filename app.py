@@ -46,7 +46,7 @@ data_pairs = dl.load_data_from_csv(data_path)
 DATA_PAIR_LIST = dm.DataPairList(data_pairs)
 flag = False
 
-user_selections = [""] * len(data_pairs)
+user_selections = [""] * (len(data_pairs) / 2)
 
 ADMIN_PASSWORD = 'hckjlpopulationinformaticslab'
 
