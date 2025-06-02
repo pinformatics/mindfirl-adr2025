@@ -52,7 +52,17 @@ $(document).ready(function() {
     console.log("at least it ran")
 
     $options.click(function(e) {
+        e.preventDefault()
         console.log("submit selections")
-        fetch('/submit_selections', {method: 'POST'})
+        fetch('/submit_selections', {
+            method: 'POST',
+            credentials: 'same-origin'
+        })
+        .then(response => {
+            alert("Your submissions have been recorded. If you would like to change your submissions, you may do so and then resubmit.")
+        })
+        .catch(error => {
+            // handle error here
+        });
     });
 })
