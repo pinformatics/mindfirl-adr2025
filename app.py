@@ -35,18 +35,39 @@ MAIL_RECEIVER = ''
 
 mail = Mail(app)
 
-if 'DYNO' in os.environ:
-    r = redis.from_url(os.environ.get("REDIS_URL"))
+# Initialize Redis connection
+redis_url = os.environ.get("REDIS_URL")
+if redis_url:
+    r = redis.from_url(redis_url)
 else:
-    r = redis.Redis(host='localhost', port=6379, db=0)
+    # Local development fallback
+    r = redis.Redis(
+        host=os.environ.get("REDIS_HOST", "localhost"),
+        port=int(os.environ.get("REDIS_PORT", "6379")),
+        password=os.environ.get("REDIS_PASSWORD", None),
+        ssl=(os.environ.get("REDIS_USE_TLS", "false").lower() == "true")
+    )
 
+# Global variables
 data_path = 'data/ppirl.csv'
-DATASET = dl.load_data_from_csv('data/section2.csv')
-data_pairs = dl.load_data_from_csv(data_path)
-DATA_PAIR_LIST = dm.DataPairList(data_pairs)
+DATASET = None
+data_pairs = None
+DATA_PAIR_LIST = None
 flag = False
+user_selections = None
 
-user_selections = [""] * (len(data_pairs) / 2)
+def init_app_data():
+    """Initialize application data after app context is available"""
+    global DATASET, data_pairs, DATA_PAIR_LIST, user_selections
+    DATASET = dl.load_data_from_csv('data/section2.csv')
+    data_pairs = dl.load_data_from_csv(data_path)
+    DATA_PAIR_LIST = dm.DataPairList(data_pairs)
+    user_selections = [""] * (len(data_pairs) / 2)
+
+@app.before_first_request
+def before_first_request():
+    """Initialize data before first request"""
+    init_app_data()
 
 ADMIN_PASSWORD = 'hckjlpopulationinformaticslab'
 
@@ -490,3 +511,7 @@ def save_survey():
             "message": "Failed to send email: {0}. Your response was not recorded.".format(str(e)),
             "redirect": redirect_url
         }), 500
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 80))
+    app.run(host='0.0.0.0', port=port)

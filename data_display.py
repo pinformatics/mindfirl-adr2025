@@ -9,6 +9,15 @@ DATA_MODE_MASKED = ['masked', 'masked', 'masked', 'masked', 'masked', 'masked']
 DATA_MODE_MINIMUM = ['masked', 'partial', 'partial', 'partial', 'full', 'masked']
 DATA_MODE_MODERATE = ['partial', 'partial', 'partial', 'partial', 'full', 'masked']
 
+from flask import url_for, current_app
+
+def get_static_url(filename):
+    """Helper function to get static URL with proper error handling"""
+    try:
+        return url_for('static', filename=filename)
+    except RuntimeError:
+        # Fallback for when app context is not available
+        return '/static/' + filename
 
 def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
     """
@@ -34,12 +43,12 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'full':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr1_display = attr1
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr2_display = attr2
         else:
@@ -83,12 +92,12 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'partial':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '*'*len(attr1)
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '*'*len(attr2)
         else:
@@ -96,8 +105,8 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
                 attr1_display = len(attr1)*'@'
                 attr2_display = len(attr2)*'&'
             elif helper1 == helper2:
-                attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-                attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
             else:
                 attr1_display = ''
                 attr2_display = ''
@@ -135,12 +144,12 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'masked':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '*'*len(attr1)
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '*'*len(attr2)
         else:
@@ -148,8 +157,8 @@ def get_string_display(attr1, attr2, helper1, helper2, attribute_mode):
                 attr1_display = len(attr1)*'@'
                 attr2_display = len(attr2)*'&'
             elif helper1 == helper2:
-                attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-                attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
             else:
                 attr1_display = ''
                 attr2_display = ''
@@ -210,12 +219,12 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'full':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr1_display = attr1
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr2_display = attr2
         else:
@@ -260,12 +269,12 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'partial':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '**/**/****'
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '**/**/****'
         else:
@@ -273,8 +282,8 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
                 attr1_display = '@@/@@/@@@@'
                 attr2_display = '&&/&&/&&&&'
             elif helper1 == helper2:
-                attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-                attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
             else:
                 attr1_display = ''
                 attr2_display = ''
@@ -310,12 +319,12 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
     elif attribute_mode == 'masked':
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '**/**/****'
 
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '**/**/****'
         else:
@@ -323,8 +332,8 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
                 attr1_display = '@@/@@/@@@@'
                 attr2_display = '&&/&&/&&&&'
             elif helper1 == helper2:
-                attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-                attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
             else:
                 attr1_display = ''
                 attr2_display = ''
@@ -358,28 +367,28 @@ def get_date_display(attr1, attr2, helper1, helper2, attribute_mode):
                         k += 1
         return [attr1_display, attr2_display]
 
-def get_character_display(attr1, attr2,  helper1, helper2, attribute_mode):
+def get_character_display(attr1, attr2, helper1, helper2, attribute_mode):
     """
     """
     if attribute_mode == 'base' or attribute_mode == 'full':
         if not attr1:
-            attr1 = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+            attr1 = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
         if not attr2:
-            attr2 = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+            attr2 = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
         return [attr1, attr2]
     else:
         if not attr1 or not attr2:
             if not attr1:
-                attr1_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr1_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr1_display = '*'
             if not attr2:
-                attr2_display = '<img src="../static/images/site/missing.png" alt="missing" class="missing_icon">'
+                attr2_display = '<img src="' + get_static_url('images/site/missing.png') + '" alt="missing" class="missing_icon">'
             else:
                 attr2_display = '*'
         elif attr1 == attr2:
-            attr1_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
-            attr2_display = '<img src="../static/images/site/checkmark.png" alt="checkmark" class="freq_icon">'
+            attr1_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
+            attr2_display = '<img src="' + get_static_url('images/site/checkmark.png') + '" alt="checkmark" class="freq_icon">'
         else:
             attr1_display = '@'
             attr2_display = '&'
@@ -391,13 +400,13 @@ def get_name_freq(freq, mode):
         return ''
     freq = int(freq)
     if freq <= 3:
-        return '<img src="../static/images/site/unique.png" alt="unique" class="freq_icon">'
+        return '<img src="' + get_static_url('images/site/unique.png') + '" alt="unique" class="freq_icon">'
     elif freq <= 10:
-        return '<img src="../static/images/site/rare.png" alt="rare" class="freq_icon">'
+        return '<img src="' + get_static_url('images/site/rare.png') + '" alt="rare" class="freq_icon">'
     elif freq <= 100:
-        return '<img src="../static/images/site/common.png" alt="common" class="freq_icon">'
+        return '<img src="' + get_static_url('images/site/common.png') + '" alt="common" class="freq_icon">'
     else:
-        return '<img src="../static/images/site/infinity.png" alt="infinity" class="freq_icon">'
+        return '<img src="' + get_static_url('images/site/infinity.png') + '" alt="infinity" class="freq_icon">'
 
 
 def get_ffreq(freq, mode='full'):

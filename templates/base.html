@@ -3,22 +3,22 @@
     <head>
         <meta charset="utf-8">
         <title>PPIRL</title>
-        <link rel="shortcut icon" href="../static/images/site/favicon.ico" type="image/x-icon" />
-        <link rel="stylesheet" href="../static/css/site.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/style.css?q=410" type="text/css">
-        <link rel="stylesheet" href="../static/css/ionicons.min.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/select.css?q=122" type="text/css">
-        <link rel="stylesheet" href="../static/css/bootstrap.min.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/footer.css" type="text/css">
-        <link rel="stylesheet" href="../static/css/animate.min.css">
-        <script src="../static/javascript/jquery-3.2.1.min.js"></script>
-        <script src="../static/javascript/popper.min.js"></script>
-        <script src="../static/javascript/bootstrap.min.js"></script>
-        <script src="../static/javascript/site.js"></script>
-        <script src="../static/javascript/choice_panel.js?v=94"></script>
-        <!-- <script src="../static/javascript/grading.js"></script> -->
-        <!-- <script src="../static/javascript/form_submit.js?v=7"></script> -->
-        <!-- <script src="../static/javascript/clickable.js?v=17"></script> -->
+        <link rel="shortcut icon" href="{{ url_for('static', filename='images/site/favicon.ico') }}" type="image/x-icon" />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/site.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?q=410" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/ionicons.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/select.css') }}?q=122" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/animate.min.css') }}">
+        <script src="{{ url_for('static', filename='javascript/jquery-3.2.1.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='javascript/popper.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='javascript/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='javascript/site.js') }}"></script>
+        <script src="{{ url_for('static', filename='javascript/choice_panel.js') }}?v=94"></script>
+        <!-- <script src="{{ url_for('static', filename='javascript/grading.js') }}"></script> -->
+        <!-- <script src="{{ url_for('static', filename='javascript/form_submit.js') }}?v=7"></script> -->
+        <!-- <script src="{{ url_for('static', filename='javascript/clickable.js') }}?v=17"></script> -->
         <script type=text/javascript>
             $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
             $THIS_URL = "{{ thisurl }}";
@@ -79,7 +79,7 @@
             var options = [];
             if(id.includes("q1")){
                 options = ["Please select an option",
-                            "Software allows for minimum disclosure -- identifiers can be opened on an ‘as needed’ basis",
+                            "Software allows for minimum disclosure -- identifiers can be opened on an 'as needed' basis",
                             "Software allows for tracking disclosures to enhance accountability",
                             "Software is configurable to optimize safe data use per project",
                             "Software allows for participants to feel good about the use of their data in a safe manner while still having confidence in the quality of the results.",
@@ -124,7 +124,7 @@
            var options = [];
             if(id.includes("q1")){
                 options = ["Please select an option",
-                            "Software allows for minimum disclosure -- identifiers can be opened on an ‘as needed’ basis",
+                            "Software allows for minimum disclosure -- identifiers can be opened on an 'as needed' basis",
                             "Software allows for tracking disclosures to enhance accountability",
                             "Software is configurable to optimize safe data use per project",
                             "Software allows for participants to feel good about the use of their data in a safe manner while still having confidence in the quality of the results.",
