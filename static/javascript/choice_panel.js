@@ -59,7 +59,9 @@ $(document).ready(function() {
             credentials: 'same-origin'
         })
         .then(response => {
-            alert("Your submissions have been recorded. If you would like to change your submissions, you may do so and then resubmit.")
+            alert("Thank you for participating! Your submissions have been recorded. \
+                If you would like to change your submissions, you may do so and then resubmit. After a short time, we \
+                will display the group's selections.")
         })
         .catch(error => {
             // handle error here

@@ -40,7 +40,7 @@
 
     <body id="wrapper">
         <div style="display: flex">
-            <img src="/mindfirl-userstudy/mindfirl-adr2025/static/images/site/population_informatics_icon.png">
+            <img src="{{ url_for('static', filename='images/site/population_informatics_icon.png')}}">
             <div id="title">
                 <h3>{{ title }}</h3>
             </div>
@@ -54,7 +54,7 @@
             {% include "table.html" %}
         </div>
 		    <form> 
-                <button class="submit-button" style="margin-left: 45% " >Submit</button>
+                <button class="submit-button" style="margin-left: 45%">Submit</button>
             </form>
 
         <div id="footer_filler"></div>
