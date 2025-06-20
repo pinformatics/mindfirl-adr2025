@@ -263,7 +263,8 @@ def pull_survey():
 
 app.secret_key = 'a9%z$/`9h8FMnh893;*g783'
 
-@app.route('/view_all_redis_data')
+@app.route('/admin/view_all_redis_data')
+@admin.required
 def view_all_redis_data():
     try:
         ret = '<h1>All Stored Data in Redis</h1>'
@@ -277,6 +278,7 @@ def view_all_redis_data():
         return "Error connecting to Redis: {0}".format(str(e)), 500
 
 @app.route('/admin/clear_redis')
+@admin_required
 def clear_redis():
     try:
         r.flushall()
