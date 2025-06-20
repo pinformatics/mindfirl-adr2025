@@ -263,8 +263,7 @@ def pull_survey():
 
 app.secret_key = 'a9%z$/`9h8FMnh893;*g783'
 
-@app.route('/admin/view_all_redis_data')
-@admin.required
+@app.route('/view_all_redis_data')
 def view_all_redis_data():
     try:
         ret = '<h1>All Stored Data in Redis</h1>'
