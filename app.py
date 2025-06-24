@@ -69,7 +69,7 @@ def before_first_request():
     """Initialize data before first request"""
     init_app_data()
 
-ADMIN_PASSWORD = 'hckjlpopulationinformaticslab'
+ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", None)
 
 def admin_required(f):
     @wraps(f)
